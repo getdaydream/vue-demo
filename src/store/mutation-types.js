@@ -1,3 +1,7 @@
+/**
+ * All mutations types used in the project
+ */
+
 // root mutations
 export const UPDATE_TOKEN = 'UPDATE_TOKEN';
 

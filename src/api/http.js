@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { state } from '../store/index';
 
 const http = axios.create({
   baseURL: `http://${process.env.HOST}:3000`,
@@ -23,11 +24,16 @@ const http = axios.create({
 
 // before request hook
 http.interceptors.request.use(
-  config =>
-    // if (store.token) {
-    //   config.headers.Authorization = `token ${store.token}`;
-    // }
-    config
+  (config) => {
+    if (state.token) {
+      Object.assign(config, {
+        headers: {
+          Authorization: `token ${state.token}`
+        }
+      });
+    }
+    return config;
+  }
   ,
   err => Promise.reject(err)
 );

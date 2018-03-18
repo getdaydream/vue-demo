@@ -1,4 +1,11 @@
 /**
+ * pattern
+ */
+export const nicknamePattern = /^[\w\u4e00-\u9fa5]{2,15}$/;
+export const emailPattern = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
+
+
+/**
  * Deep copy the given object considering circular structure.
  * This function caches all nested objects and its copies.
  * If it detects circular structure, use cached copy to avoid infinite loop.
@@ -32,9 +39,4 @@ export const deepCopy = (obj, cache = []) => {
   });
 
   return copy;
-};
-
-
-export const time = () => {
-
 };

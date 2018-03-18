@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import UserLogin from '../view/user-login';
-import Home from '../view/home';
+import Dashborad from '../view/dashboard';
 import { state } from '../store/index';
 
 Vue.use(Router);
@@ -10,8 +10,8 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
+      name: 'Dashborad',
+      component: Dashborad
     },
     {
       path: '/login',
