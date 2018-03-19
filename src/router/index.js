@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import UserLogin from '../view/user-login';
 import Dashborad from '../view/dashboard';
 import { state } from '../store/index';
+import Setting from '../view/setting';
 
 Vue.use(Router);
 
@@ -11,7 +12,10 @@ const router = new Router({
     {
       path: '/',
       name: 'Dashborad',
-      component: Dashborad
+      component: Dashborad,
+      meta: {
+        notRequireAuth: true
+      }
     },
     {
       path: '/login',
@@ -20,6 +24,11 @@ const router = new Router({
       meta: {
         notRequireAuth: true
       }
+    },
+    {
+      path: '/setting',
+      name: 'setting',
+      component: Setting
     }
   ]
 });
@@ -30,13 +39,15 @@ router.beforeEach((to, from, next) => {
   const token = state.token;
   // 判断要去的路由是否不需要验证
   if (to.meta.notRequireAuth) {
-    next(); // 如果无需token,直接跳转
+    // 如果无需token,直接跳转
+    next();
   } else if (token) {
     next();
   } else {
     next({
       path: '/login',
-      query: { redirect: to.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
+      // 将跳转的路由path作为参数，登录成功后跳转到该路由
+      query: { redirect: to.fullPath }
     });
   }
 });

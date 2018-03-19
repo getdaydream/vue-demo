@@ -3,56 +3,76 @@
     <div class="main">
       <h4 class="title">
         <div class="normal-title">
-          <a :class="{active: actived === 'login'}" @click="actived = 'login'">
+          <a
+            :class="{active: actived === 'login'}"
+            @click="actived = 'login'">
             登陆
           </a>
           <b>·</b>
-          <a :class="{active: actived === 'signup'}" @click="actived = 'signup'">注册</a>
+          <a
+            :class="{active: actived === 'signup'}"
+            @click="actived = 'signup'">注册</a>
         </div>
       </h4>
 
       <!-- 输入邮箱密码 -->
       <form>
         <!-- 昵称输入框 -->
-        <div v-show="actived === 'signup'" class="input-container">
-          <input v-model="nickname" placeholder="你的昵称" type="text"
-          style="border-radius:4px 4px 0 0;;border-bottom: none;"
-          @keyup.enter="submit">
-          <img src="../../static/icon/user.svg"/>
+        <div
+          v-show="actived === 'signup'"
+          class="input-container">
+          <input
+            v-model="nickname"
+            placeholder="你的昵称"
+            type="text"
+            style="border-radius:4px 4px 0 0;;border-bottom: none;"
+            @keyup.enter="submit">
+          <img src="../../static/icon/user.svg">
         </div>
         <!-- 邮箱输入框 -->
         <div class="input-container">
-          <input v-model="email" placeholder="邮箱" type="text"
-          style="border-bottom: none;"
-          :style="{'border-radius': actived === 'login' ? '4px 4px 0 0;' : ''}"
-          @keyup.enter="submit">
-          <img src="../../static/icon/mail.svg"/>
+          <input
+            v-model="email"
+            :style="{'border-radius': actived === 'login' ? '4px 4px 0 0;' : ''}"
+            placeholder="邮箱"
+            type="text"
+            style="border-bottom: none;"
+            @keyup.enter="submit">
+          <img src="../../static/icon/mail.svg">
         </div>
         <!-- 密码输入框 -->
         <div class="input-container">
-          <input v-model="password" placeholder="密码" type="password"
-          style="border-radius: 0 0 4px 4px;" @keyup.enter="submit">
-          <img src="../../static/icon/lock.svg"/>
+          <input
+            v-model="password"
+            placeholder="密码"
+            type="password"
+            style="border-radius: 0 0 4px 4px;"
+            @keyup.enter="submit">
+          <img src="../../static/icon/lock.svg">
         </div>
-        <el-checkbox v-show="actived === 'login'" class="remember-check" v-model="rememberMe">
+        <el-checkbox
+          v-show="actived === 'login'"
+          v-model="rememberMe"
+          class="remember-check">
           记住我
         </el-checkbox>
         <!-- 提交按钮 -->
-        <div class="submit-btn" @click="submit"
-        :style="{background: actived === 'login' ? '#409EFF' : '#42c02e',
-        'margin-top': actived === 'signup' ? '35px' : ''}"
-        :class="{'login-btn': actived === 'login', 'signup-btn': actived === 'signup'}">
-          {{actived === 'login' ? '登陆' : '注册'}}
+        <div
+          :style="{'margin-top': actived === 'signup' ? '35px' : ''}"
+          :class="{'login-btn': actived === 'login', 'signup-btn': actived === 'signup'}"
+          class="submit-btn"
+          @click="submit">
+          {{ actived === 'login' ? '登陆' : '注册' }}
         </div>
       </form>
       <!-- 更多登陆方式 -->
       <div class="more-sign">
         <h6>
-          {{actived === 'login' ? '社交账号登陆' : '社交账号直接注册'}}
+          {{ actived === 'login' ? '第三方账号登陆' : '第三方账号直接注册' }}
         </h6>
         <ul>
-          <li>
-            <img src="../../static/icon/github.svg"/>
+          <li @click="redirectGithubOAuth">
+            <img src="../../static/icon/github.svg">
           </li>
         </ul>
       </div>
@@ -61,6 +81,7 @@
 </template>
 <script>
 import { emailPattern, nicknamePattern } from '../util';
+import http from '../api/http';
 
 export default {
   name: 'Login',
@@ -73,6 +94,23 @@ export default {
       password: '',
       rememberMe: true
     };
+  },
+  watch: {
+    // 切换登陆注册时，重置账号密码
+    actived() {
+      this.email = '';
+      this.password = '';
+    },
+    // 不允许昵称邮箱密码中有空格
+    nickname() {
+      this.nickname = this.nickname.trim();
+    },
+    email() {
+      this.email = this.email.trim();
+    },
+    password() {
+      this.password = this.password.trim();
+    }
   },
   methods: {
     // 验证邮箱字段
@@ -147,23 +185,12 @@ export default {
     },
     // 注册
     signup() {
-    }
-  },
-  watch: {
-    // 切换登陆注册时，重置账号密码
-    actived() {
-      this.email = '';
-      this.password = '';
     },
-    // 不允许昵称邮箱密码中有空格
-    nickname() {
-      this.nickname = this.nickname.trim();
-    },
-    email() {
-      this.email = this.email.trim();
-    },
-    password() {
-      this.password = this.password.trim();
+    // 跳转获取github授权
+    redirectGithubOAuth() {
+      http.get('/oauth/github').then((res) => {
+        window.location.replace(res.data.redirect);
+      });
     }
   }
 };
@@ -180,7 +207,7 @@ export default {
 
 .main {
   width: 400px;
-  margin: 60px auto 0;
+  margin: 150px auto 0;
   padding: 50px 50px 30px;
   background-color: #fff;
   border-radius: 4px;
@@ -256,6 +283,22 @@ input:focus {
   margin: 15px 0;
 }
 
+.login-btn {
+  background: #187cb7;
+}
+
+.login-btn:hover {
+  background: #3194d0;
+}
+
+.signup-btn {
+  background: #42c02e;
+}
+
+.signup-btn:hover {
+  background: #3db922;
+}
+
 .submit-btn {
   width: 100%;
   padding: 9px 18px;
@@ -265,12 +308,6 @@ input:focus {
   color: #fff;
   cursor: pointer;
   clear: both;
-}
-
-.login-btn:hover {
-}
-
-.signup-btn:hover {
 }
 
 .more-sign {

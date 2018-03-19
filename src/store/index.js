@@ -6,7 +6,7 @@ Vue.use(Vuex);
 // root state object.
 // each Vuex instance is just a single state tree.
 export const state = {
-  token: ''
+  token: localStorage.getItem('token') || ''
 };
 
 // mutations are operations that actually mutates the state.

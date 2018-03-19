@@ -2,7 +2,7 @@ import axios from 'axios';
 import { state } from '../store/index';
 
 const http = axios.create({
-  baseURL: `http://${process.env.HOST}:3000`,
+  baseURL: 'http://192.168.0.104:3000',
   transformRequest: [
     (data) => {
       // Do whatever you want to transform the data
