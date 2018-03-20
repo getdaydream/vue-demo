@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import * as types from './mutation-types';
 
 Vue.use(Vuex);
 
@@ -15,8 +16,9 @@ export const state = {
 // mutations must be synchronous and can be recorded by plugins
 // for debugging purposes.
 const mutations = {
-  updateToken(state, payload) {
+  [types.UPDATE_TOKEN](state, payload) {
     state.token = payload.token;
+    localStorage.setItem('token', payload.token);
   }
 };
 

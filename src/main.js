@@ -4,6 +4,7 @@ import Vue from 'vue';
 import { Message, Checkbox } from 'element-ui';
 import App from './App';
 import router from './router';
+import store from './store/index';
 
 
 Vue.config.productionTip = false;
@@ -18,5 +19,6 @@ Vue.prototype.$message = Message;
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 });

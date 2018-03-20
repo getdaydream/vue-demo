@@ -4,14 +4,14 @@
       <h4 class="title">
         <div class="normal-title">
           <a
-            :class="{active: actived === 'login'}"
-            @click="actived = 'login'">
+            :class="{active: page === 'login'}"
+            @click="page = 'login'">
             登陆
           </a>
           <b>·</b>
           <a
-            :class="{active: actived === 'signup'}"
-            @click="actived = 'signup'">注册</a>
+            :class="{active: page === 'signup'}"
+            @click="page = 'signup'">注册</a>
         </div>
       </h4>
 
@@ -19,7 +19,7 @@
       <form>
         <!-- 昵称输入框 -->
         <div
-          v-show="actived === 'signup'"
+          v-show="page === 'signup'"
           class="input-container">
           <input
             v-model="nickname"
@@ -33,7 +33,7 @@
         <div class="input-container">
           <input
             v-model="email"
-            :style="{'border-radius': actived === 'login' ? '4px 4px 0 0;' : ''}"
+            :style="{'border-radius': page === 'login' ? '4px 4px 0 0;' : ''}"
             placeholder="邮箱"
             type="text"
             style="border-bottom: none;"
@@ -51,24 +51,24 @@
           <img src="../../static/icon/lock.svg">
         </div>
         <el-checkbox
-          v-show="actived === 'login'"
+          v-show="page === 'login'"
           v-model="rememberMe"
           class="remember-check">
           记住我
         </el-checkbox>
         <!-- 提交按钮 -->
         <div
-          :style="{'margin-top': actived === 'signup' ? '35px' : ''}"
-          :class="{'login-btn': actived === 'login', 'signup-btn': actived === 'signup'}"
+          :style="{'margin-top': page === 'signup' ? '35px' : ''}"
+          :class="{'login-btn': page === 'login', 'signup-btn': page === 'signup'}"
           class="submit-btn"
           @click="submit">
-          {{ actived === 'login' ? '登陆' : '注册' }}
+          {{ page === 'login' ? '登陆' : '注册' }}
         </div>
       </form>
       <!-- 更多登陆方式 -->
       <div class="more-sign">
         <h6>
-          {{ actived === 'login' ? '第三方账号登陆' : '第三方账号直接注册' }}
+          {{ page === 'login' ? '第三方账号登陆' : '第三方账号直接注册' }}
         </h6>
         <ul>
           <li @click="redirectGithubOAuth">
@@ -82,13 +82,15 @@
 <script>
 import { emailPattern, nicknamePattern } from '../util';
 import http from '../api/http';
+import { UPDATE_TOKEN } from '../store/mutation-types';
+import store from '../store/index';
 
 export default {
   name: 'Login',
   data() {
     return {
       // 'login' | 'signup'
-      actived: 'login',
+      page: 'login',
       nickname: '',
       email: '',
       password: '',
@@ -97,7 +99,7 @@ export default {
   },
   watch: {
     // 切换登陆注册时，重置账号密码
-    actived() {
+    page() {
       this.email = '';
       this.password = '';
     },
@@ -110,6 +112,11 @@ export default {
     },
     password() {
       this.password = this.password.trim();
+    }
+  },
+  activated() {
+    if (localStorage.getItem('token')) {
+      this.$router.replace({ path: '/' });
     }
   },
   methods: {
@@ -168,12 +175,12 @@ export default {
       return true;
     },
     submit() {
-      if (this.actived === 'signup' && !this.isNicknameValid()) {
+      if (this.page === 'signup' && !this.isNicknameValid()) {
         return;
       }
       if (this.isEmailValid() && this.isPasswordValid()) {
         console.log('submit');
-        if (this.actived === 'login') {
+        if (this.page === 'login') {
           this.login();
         } else {
           this.signup();
@@ -182,13 +189,45 @@ export default {
     },
     // 登陆
     login() {
+      http.post('/v1/users/login', {
+        email: this.email,
+        password: this.password
+      }).then(({ data }) => {
+        if (data.error) {
+          this.$message({
+            message: data.error,
+            type: 'error'
+          });
+        } else {
+          store.commit(UPDATE_TOKEN, { token: data.token });
+          this.$router.replace({ path: '/' });
+          this.$message({
+            message: '登陆成功',
+            type: 'success'
+          });
+        }
+      });
     },
     // 注册
     signup() {
+      http.post('/v1/users/signup', {
+        nickname: this.nickname,
+        email: this.email,
+        password: this.password
+      }).then((res) => {
+        if (res.data.token) {
+          store.commit(UPDATE_TOKEN, { token: res.data.token });
+          this.$router.replace({ path: '/' });
+          this.$message({
+            message: '恭喜你，注册成功',
+            type: 'success'
+          });
+        }
+      });
     },
     // 跳转获取github授权
     redirectGithubOAuth() {
-      http.get('/oauth/github').then((res) => {
+      http.get('/v1/oauth/github').then((res) => {
         window.location.replace(res.data.redirect);
       });
     }
@@ -361,4 +400,3 @@ li img {
   width: 30px;
 }
 </style>
-

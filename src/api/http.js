@@ -1,13 +1,20 @@
 import axios from 'axios';
 import { state } from '../store/index';
 
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
 const http = axios.create({
   baseURL: 'http://192.168.0.104:3000',
   transformRequest: [
     (data) => {
-      // Do whatever you want to transform the data
+      // `transformRequest` allows changes to the request data before it is sent to the server
+      // This is only applicable for request methods 'PUT', 'POST', and 'PATCH'
       console.dir(data);
-      return data;
+      const params = new URLSearchParams();
+      Object.keys(data).forEach((k) => {
+        params.append(k, data[k]);
+      });
+      return params;
     }
   ],
   // `transformResponse` allows changes to the response data to be made before
