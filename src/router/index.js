@@ -2,8 +2,10 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import UserLogin from '../view/user-login';
 import Dashborad from '../view/dashboard';
+import Movie from '../view/movie';
+import Book from '../view/book';
 import { state } from '../store/index';
-import Setting from '../view/setting';
+import Bug from '../view/bug';
 
 Vue.use(Router);
 
@@ -13,9 +15,23 @@ const router = new Router({
       path: '/',
       name: 'Dashborad',
       component: Dashborad,
+      redirect: '/bug',
       meta: {
         notRequireAuth: true
-      }
+      },
+      children: [{
+        path: 'bug',
+        name: 'Bug',
+        component: Bug
+      }, {
+        path: '/movie',
+        name: 'Movie',
+        component: Movie
+      }, {
+        path: '/book',
+        name: 'Book',
+        component: Book
+      }]
     },
     {
       path: '/login',
@@ -24,11 +40,6 @@ const router = new Router({
       meta: {
         notRequireAuth: true
       }
-    },
-    {
-      path: '/setting',
-      name: 'setting',
-      component: Setting
     }
   ]
 });

@@ -72,7 +72,9 @@
         </h6>
         <ul>
           <li @click="redirectGithubOAuth">
-            <img src="../../static/icon/github.svg">
+            <img
+              title="GitHub"
+              src="../../static/icon/github.svg">
           </li>
         </ul>
       </div>
