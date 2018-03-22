@@ -20,6 +20,9 @@ npm run build --report
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
+## Dependencies
+- [mavonEditor](https://github.com/hinesboy/mavonEditor): A markdown editor based on Vue that supports a variety of personalized features.
+
 ## TODO
 * login page photo wall
 * [Vue-multiselect](https://vue-multiselect.js.org/)
@@ -27,3 +30,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 * [vue-play](https://github.com/vue-play/vue-play)
 * [Video Player for Vue](https://surmon-china.github.io/vue-video-player/)
 * [ssr:nuxt](https://zh.nuxtjs.org/guide/installation)
+* 分步加载

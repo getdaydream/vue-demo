@@ -51,6 +51,7 @@
       role="main"
       class="main-container">
       <router-view/>
+      <markdown-editor/>
     </main>
   </div>
 </template>
@@ -60,8 +61,12 @@ import { getQueryParams } from '../util';
 import store, { state } from '../store/index';
 import { UPDATE_TOKEN } from '../store/mutation-types';
 import http from '../api/http';
+import MarkdownEditor from '../components/markdown-editor';
 
 export default {
+  components: {
+    'markdown-editor': MarkdownEditor
+  },
   activated() {
     // 如果是github授权回调页面
     const code = getQueryParams('code');
