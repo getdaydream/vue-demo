@@ -7,7 +7,22 @@ Vue.use(Vuex);
 // root state object.
 // each Vuex instance is just a single state tree.
 export const state = {
-  token: localStorage.getItem('token') || ''
+  token: localStorage.getItem('token') || '',
+  // login: 登陆页面
+  // signup： 注册页面
+  page: 'login',
+  user: {
+    nickname: '',
+    email: '',
+    avatar: ''
+  }
+};
+
+
+const getters = {
+  isLogin(state) {
+    return Boolean(state.token);
+  }
 };
 
 // mutations are operations that actually mutates the state.
@@ -19,6 +34,12 @@ const mutations = {
   [types.UPDATE_TOKEN](state, payload) {
     state.token = payload.token;
     localStorage.setItem('token', payload.token);
+  },
+  [types.SWITCH_PAGE](state, payload) {
+    state.page = payload.page;
+  },
+  [types.UPDATE_USER](state, payload) {
+    state.user = Object.assign(state.user, payload);
   }
 };
 
@@ -26,6 +47,7 @@ const debug = process.env.NODE_ENV !== 'production';
 
 export default new Vuex.Store({
   state,
+  getters,
   mutations,
   strict: debug
 });

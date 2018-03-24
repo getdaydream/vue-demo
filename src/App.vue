@@ -37,7 +37,9 @@ img {
 }
 
 a {
+  display: block;
   cursor: pointer;
+  text-decoration: none;
 }
 
 h4,
@@ -50,5 +52,9 @@ h6 {
 
 h4 {
   font-size: 18px;
+}
+
+.flex {
+  display: flex;
 }
 </style>

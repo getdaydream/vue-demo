@@ -5,13 +5,13 @@
         <div class="normal-title">
           <a
             :class="{active: page === 'login'}"
-            @click="page = 'login'">
+            @click="switchPage('login')">
             登陆
           </a>
           <b>·</b>
           <a
             :class="{active: page === 'signup'}"
-            @click="page = 'signup'">注册</a>
+            @click="switchPage('signup')">注册</a>
         </div>
       </h4>
 
@@ -82,23 +82,23 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex';
 import { emailPattern, nicknamePattern } from '../util';
 import http from '../api/http';
-import { UPDATE_TOKEN } from '../store/mutation-types';
+import { UPDATE_TOKEN, SWITCH_PAGE } from '../store/mutation-types';
 import store from '../store/index';
 
 export default {
   name: 'Login',
   data() {
     return {
-      // 'login' | 'signup'
-      page: 'login',
       nickname: '',
       email: '',
       password: '',
       rememberMe: true
     };
   },
+  computed: mapState(['page']),
   watch: {
     // 切换登陆注册时，重置账号密码
     page() {
@@ -122,6 +122,9 @@ export default {
     }
   },
   methods: {
+    switchPage(page) {
+      store.commit(SWITCH_PAGE, { page });
+    },
     // 验证邮箱字段
     isEmailValid() {
       if (!this.email.trim()) {
@@ -181,7 +184,6 @@ export default {
         return;
       }
       if (this.isEmailValid() && this.isPasswordValid()) {
-        console.log('submit');
         if (this.page === 'login') {
           this.login();
         } else {
@@ -279,6 +281,7 @@ export default {
 }
 
 .title a {
+  display: inline;
   padding: 10px;
 }
 

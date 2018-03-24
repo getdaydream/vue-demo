@@ -38,34 +38,105 @@
             suffix-icon="el-icon-search"/>
         </div>
         <!-- 用户 -->
-        <div class="user-info">
-          <router-link to="/people"/>
-          <el-button
+        <div
+          v-if="!isLogin"
+          class="user-info">
+          <!-- 用户未登录时显示 登陆 注册 按钮 -->
+          <div
+            class="login-btn"
+            @click="goLogin('login')"
+          >
+            登陆
+          </div>
+          <div
+            class="signup-btn"
+            @click="goLogin('signup')">
+            注册
+          </div>
+        </div>
+        <div
+          v-else
+          class="user-info"
+        >
+          <!-- 用户头像 -->
+          <div
+            class="user"
+            @mouseenter="swichDropdown(true)"
+            @mouseleave="swichDropdown(false)">
+            <router-link
+              class="dropdown"
+              to="/people">
+              <div class="avatar"/>
+            </router-link>
+            <!-- 用户相关导航 -->
+            <ul
+              v-show="showDropdown"
+              class="dropdown-menu">
+              <li>
+                <a>
+                  个人主页
+                </a>
+              </li>
+              <li>
+                <a>
+                  设置
+                </a>
+              </li>
+              <li @click="logout">
+                <a>
+                  退出
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!-- 发布文章 -->
+          <el-dropdown
+            split-button
             type="primary"
-            icon="el-icon-edit">写文章</el-button>
+            trigger="click"
+            @command="handleCommand"
+          >
+            发布
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>动态</el-dropdown-item>
+              <el-dropdown-item command="/drafts">文章</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </div>
       </div>
     </header>
     <div class="sticky-holder"/>
     <main
-      role="main"
-      class="main-container">
+      role="main">
       <router-view/>
-      <markdown-editor/>
     </main>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex';
 import { getQueryParams } from '../util';
 import store, { state } from '../store/index';
-import { UPDATE_TOKEN } from '../store/mutation-types';
+import { UPDATE_TOKEN, SWITCH_PAGE } from '../store/mutation-types';
 import http from '../api/http';
 import MarkdownEditor from '../components/markdown-editor';
 
 export default {
   components: {
     'markdown-editor': MarkdownEditor
+  },
+  data() {
+    return {
+      showDropdown: false
+    };
+  },
+  computed: {
+    ...mapState([
+      'user'
+    ]),
+    ...mapGetters([
+      'isLogin'
+    ])
   },
   activated() {
     // 如果是github授权回调页面
@@ -80,6 +151,27 @@ export default {
           localStorage.setItem('token', res.data.token);
         });
     }
+    this.showDropdown = false;
+  },
+  methods: {
+    goLogin(page) {
+      store.commit(SWITCH_PAGE, { page });
+      this.$router.push('/login');
+    },
+    handleCommand(path) {
+      this.$router.push({ path });
+    },
+    swichDropdown(bool) {
+      this.showDropdown = bool;
+    },
+    logout() {
+      this.showDropdown = false;
+      store.commit(UPDATE_TOKEN, { token: '' });
+      this.$message({
+        type: 'success',
+        message: '你已退出登陆'
+      });
+    }
   }
 };
 </script>
@@ -91,7 +183,6 @@ export default {
   width: 100%;
   top: 0px;
   left: 0px;
-  overflow: hidden;
   background: #fff;
   box-shadow: 0 1px 3px rgba(26, 26, 26, 0.1);
   background-clip: content-box;
@@ -128,6 +219,116 @@ export default {
 .user-info {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+}
+
+.user-info .login-btn {
+  display: inline-block;
+  margin-right: 16px;
+  color: #0084ff;
+  border-color: #0084ff;
+  border: 1px solid;
+  border-radius: 3px;
+  padding: 0 16px;
+  font-size: 14px;
+  line-height: 32px;
+  text-align: center;
+}
+
+.user-info .login-btn:hover {
+  background-color: rgba(0, 132, 255, 0.06);
+}
+
+.user-info .signup-btn {
+  display: inline-block;
+  color: #fff;
+  background-color: #0084ff;
+  border: 1px solid;
+  padding: 0 16px;
+  font-size: 14px;
+  text-align: center;
+  line-height: 32px;
+  border-radius: 3px;
+}
+
+.user-info .signup-btn:hover {
+  background-color: #0077e6;
+}
+
+.user {
+  position: relative;
+  margin-right: 8px;
+}
+
+.user:hover {
+  background-color: #f5f5f5;
+}
+
+.dropdown {
+  height: 100%;
+  width: 40px;
+  height: 40px;
+  margin: 6px 20px;
+  color: #333;
+}
+
+.dropdown .avatar {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+}
+
+.dropdown .avatar:before {
+  content: "";
+  position: absolute;
+  top: 18px;
+  right: -14px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #999;
+}
+
+.dropdown-menu {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 96%;
+  left: 0;
+  z-index: 1000;
+  width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 14px;
+  text-align: left;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+.dropdown-menu li a {
+  padding: 10px 20px;
+  line-height: 30px;
+  font-weight: 400;
+  color: #333;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #f5f5f5;
+}
+
+.compose-button {
+  width: 49px;
+  height: 36px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.compose-button .img {
+  width: 25px;
 }
 
 .sticky-holder {
@@ -140,12 +341,5 @@ export default {
   float: none;
   margin: 0px;
   height: 52px;
-}
-
-.main-container {
-  position: relative;
-  width: 1000px;
-  padding: 0 16px;
-  margin: 10px auto;
 }
 </style>
