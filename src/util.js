@@ -18,6 +18,16 @@ export const getQueryParams = (key) => {
 };
 
 /**
+ * Get the first item that pass the test
+ * by second argument function
+ *
+ * @param {Array} list
+ * @param {Function} f
+ * @return {*}
+ */
+export const find = (list, f) => list.filter(f)[0];
+
+/**
  * Deep copy the given object considering circular structure.
  * This function caches all nested objects and its copies.
  * If it detects circular structure, use cached copy to avoid infinite loop.

@@ -24,17 +24,21 @@
           <input
             v-model="nickname"
             placeholder="你的昵称"
+            autocomplete="username"
             type="text"
             style="border-radius:4px 4px 0 0;;border-bottom: none;"
             @keyup.enter="submit">
           <img src="../../static/icon/user.svg">
         </div>
         <!-- 邮箱输入框 -->
-        <div class="input-container">
+        <div
+          class="input-container"
+        >
           <input
             v-model="email"
             :style="{'border-radius': page === 'login' ? '4px 4px 0 0;' : ''}"
             placeholder="邮箱"
+            autocomplete="email"
             type="text"
             style="border-bottom: none;"
             @keyup.enter="submit">
@@ -45,6 +49,7 @@
           <input
             v-model="password"
             placeholder="密码"
+            autocomplete="current-password"
             type="password"
             style="border-radius: 0 0 4px 4px;"
             @keyup.enter="submit">

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import * as types from './mutation-types';
 import draft from './modules/draft';
+import createLogger from './plugins/logger';
 
 Vue.use(Vuex);
 
@@ -52,5 +53,6 @@ export default new Vuex.Store({
   state,
   getters,
   mutations,
+  plugins: debug ? [createLogger()] : [],
   strict: debug
 });
