@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import * as types from './mutation-types';
+import draft from './modules/draft';
 
 Vue.use(Vuex);
 
@@ -17,7 +18,6 @@ export const state = {
     avatar: ''
   }
 };
-
 
 const getters = {
   isLogin(state) {
@@ -46,6 +46,9 @@ const mutations = {
 const debug = process.env.NODE_ENV !== 'production';
 
 export default new Vuex.Store({
+  modules: {
+    draft
+  },
   state,
   getters,
   mutations,

@@ -10,3 +10,6 @@ export const SWITCH_PAGE = 'SWITCH_PAGE';
 
 // user mutations
 export const UPDATE_USER = 'UPDATE_USER';
+
+// draft mutations
+export const DELETE_DRAFT = 'DELETE_DRAFT';

@@ -5,7 +5,8 @@ import Dashborad from '../view/dashboard';
 import Movie from '../view/movie';
 import Book from '../view/book';
 import Bug from '../view/bug';
-import Drafts from '../view/drafts';
+import Draft from '../view/draft';
+import Editor from '../view/editor';
 
 Vue.use(Router);
 
@@ -16,9 +17,6 @@ const router = new Router({
       name: 'dashborad',
       component: Dashborad,
       redirect: '/bug',
-      meta: {
-        notRequireAuth: true
-      },
       children: [{
         path: '/bug',
         name: 'bug',
@@ -32,9 +30,13 @@ const router = new Router({
         name: 'book',
         component: Book
       }, {
-        path: '/drafts',
-        name: 'drafts',
-        component: Drafts
+        path: '/draft/new',
+        name: 'draft-new',
+        component: Editor
+      }, {
+        path: '/draft',
+        name: 'draft',
+        component: Draft
       }]
     },
     {

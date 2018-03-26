@@ -69,37 +69,39 @@
               <div class="avatar"/>
             </router-link>
             <!-- 用户相关导航 -->
-            <ul
-              v-show="showDropdown"
-              class="dropdown-menu">
-              <li>
-                <a>
-                  个人主页
-                </a>
-              </li>
-              <li>
-                <a>
-                  设置
-                </a>
-              </li>
-              <li @click="logout">
-                <a>
-                  退出
-                </a>
-              </li>
-            </ul>
+            <transition name="el-zoom-in-top">
+              <ul
+                v-show="showDropdown"
+                class="dropdown-menu">
+                <li>
+                  <a>
+                    个人主页
+                  </a>
+                </li>
+                <li>
+                  <a>
+                    设置
+                  </a>
+                </li>
+                <li @click="logout">
+                  <a>
+                    退出
+                  </a>
+                </li>
+              </ul>
+            </transition>
           </div>
           <!-- 发布文章 -->
           <el-dropdown
             split-button
             type="primary"
-            trigger="click"
+            class="el-dropdown"
             @command="handleCommand"
           >
             发布
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>动态</el-dropdown-item>
-              <el-dropdown-item command="/drafts">文章</el-dropdown-item>
+              <el-dropdown-item command="/draft/new">文章</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -295,7 +297,6 @@ export default {
   position: absolute;
   top: 96%;
   left: 0;
-  z-index: 1000;
   width: 160px;
   padding: 5px 0;
   margin: 2px 0 0;
@@ -318,17 +319,8 @@ export default {
   background-color: #f5f5f5;
 }
 
-.compose-button {
-  width: 49px;
-  height: 36px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.compose-button .img {
-  width: 25px;
+.el-dropdown {
+  width: 98px;
 }
 
 .sticky-holder {
