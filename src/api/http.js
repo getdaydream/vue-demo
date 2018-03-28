@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { state } from '../store/index';
+import store from '../store';
+import { UPDATE_TOKEN } from '../store/mutation-types';
+import router from '../router';
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
@@ -9,7 +11,7 @@ const http = axios.create({
     (data) => {
       // `transformRequest` allows changes to the request data before it is sent to the server
       // This is only applicable for request methods 'PUT', 'POST', and 'PATCH'
-      if (data) {
+      if (data && !(data instanceof FormData)) {
         const params = new URLSearchParams();
         Object.keys(data).forEach((k) => {
           params.append(k, data[k]);
@@ -34,10 +36,10 @@ const http = axios.create({
 // before request hook
 http.interceptors.request.use(
   (config) => {
-    if (state.token) {
+    if (localStorage.getItem('token')) {
       Object.assign(config, {
         headers: {
-          Authorization: `token ${state.token}`
+          Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       });
     }
@@ -51,19 +53,13 @@ http.interceptors.response.use(
   response => response,
   (error) => {
     // 默认除了2XX之外的都是错误的，就会走这里
-    if (error.response) {
-      switch (error.response.status) {
-        case 401:
-          // 可能是token失效，清除它
-          // store.token = '';
-          // router.replace({
-          //   // 跳转到登录页面
-          //   path: 'login',
-          //   query: { redirect: router.currentRoute.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
-          // });
-          break;
-        default:
-      }
+    if (error) {
+      store.commit(UPDATE_TOKEN, { token: '' });
+      router.replace({
+        // 跳转到登录页面
+        path: '/login',
+        query: { redirect: router.currentRoute.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
+      });
     }
     return Promise.reject(error.response);
   }

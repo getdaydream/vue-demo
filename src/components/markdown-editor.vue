@@ -6,6 +6,9 @@
     placeholder="输入正文"
     code-style="atom-one-dark"
     @imgAdd="imgAdd"
+    @imgDel="imgDel"
+    @save="save"
+    @change="change"
   />
 </template>
 
@@ -17,6 +20,7 @@
 import 'mavon-editor/dist/css/index.css';
 import * as mavonEditor from 'mavon-editor';
 import config from '../config';
+import http from '../api/http';
 
 export default {
   name: 'Editor',
@@ -35,9 +39,29 @@ export default {
     };
   },
   methods: {
-    // 上传图片后的处理函数
-    imgAdd() {
+    // 图片文件添加回调事件(filename: 写在md中的文件名, File: File Object)
+    imgAdd(filename, file) {
+      const formdata = new FormData();
+      formdata.append('image', file);
+      http({
+        url: '/v1/images/',
+        method: 'post',
+        data: formdata,
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+    },
+    // 图片文件删除回调事件(filename: 写在md中的文件名)
+    imgDel() {
 
+    },
+    // 编辑区发生变化的回调事件(render: value 经过markdown解析后的结果)
+    change() {
+      console.log('ss');
+    },
+    save() {
+      http.get('/v1/users/').then((res) => {
+        console.log(res);
+      });
     }
   }
 };

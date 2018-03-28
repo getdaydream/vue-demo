@@ -7,6 +7,7 @@ import Book from '../view/book';
 import Bug from '../view/bug';
 import Draft from '../view/draft';
 import Editor from '../view/editor';
+import { state } from '../store/index';
 
 Vue.use(Router);
 
@@ -17,27 +18,38 @@ const router = new Router({
       name: 'dashborad',
       component: Dashborad,
       redirect: '/bug',
-      children: [{
-        path: '/bug',
-        name: 'bug',
-        component: Bug
-      }, {
-        path: '/movie',
-        name: 'movie',
-        component: Movie
-      }, {
-        path: '/book',
-        name: 'book',
-        component: Book
-      }, {
-        path: '/draft/new',
-        name: 'draft-new',
-        component: Editor
-      }, {
-        path: '/draft',
-        name: 'draft',
-        component: Draft
-      }]
+      children: [
+        {
+          path: '/bug',
+          name: 'bug',
+          component: Bug
+        },
+        {
+          path: '/movie',
+          name: 'movie',
+          component: Movie
+        },
+        {
+          path: '/book',
+          name: 'book',
+          component: Book
+        },
+        {
+          path: '/draft/new',
+          name: 'draft-new',
+          component: Editor
+        },
+        {
+          path: '/draft/:id',
+          name: 'draft-edit',
+          component: Editor
+        },
+        {
+          path: '/draft',
+          name: 'draft',
+          component: Draft
+        }
+      ]
     },
     {
       path: '/login',
@@ -51,22 +63,22 @@ const router = new Router({
 });
 
 // 注册全局钩子用来拦截导航
-// router.beforeEach((to, from, next) => {
-//   // 获取store里面的token
-//   const token = state.token;
-//   // 判断要去的路由是否不需要验证
-//   if (to.meta.notRequireAuth) {
-//     // 如果无需token,直接跳转
-//     next();
-//   } else if (token) {
-//     next();
-//   } else {
-//     next({
-//       path: '/login',
-//       // 将跳转的路由path作为参数，登录成功后跳转到该路由
-//       query: { redirect: to.fullPath }
-//     });
-//   }
-// });
+router.beforeEach((to, from, next) => {
+  // 获取store里面的token
+  const token = state.token;
+  // 判断要去的路由是否不需要验证
+  if (to.meta.notRequireAuth) {
+    // 如果无需token,直接跳转
+    next();
+  } else if (token) {
+    next();
+  } else {
+    next({
+      path: '/login',
+      // 将跳转的路由path作为参数，登录成功后跳转到该路由
+      query: { redirect: to.fullPath }
+    });
+  }
+});
 
 export default router;

@@ -173,6 +173,7 @@ export default {
         type: 'success',
         message: '你已退出登陆'
       });
+      this.$router.push({ path: '/' });
     }
   }
 };
@@ -235,6 +236,7 @@ export default {
   font-size: 14px;
   line-height: 32px;
   text-align: center;
+  cursor: pointer;
 }
 
 .user-info .login-btn:hover {
@@ -251,6 +253,7 @@ export default {
   text-align: center;
   line-height: 32px;
   border-radius: 3px;
+  cursor: pointer;
 }
 
 .user-info .signup-btn:hover {
@@ -260,6 +263,7 @@ export default {
 .user {
   position: relative;
   margin-right: 8px;
+  user-select: none;
 }
 
 .user:hover {

@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createLogger from 'vuex/dist/logger';
 import * as types from './mutation-types';
-import draft from './modules/draft';
-import createLogger from './plugins/logger';
+import post from './modules/post';
 
 Vue.use(Vuex);
 
@@ -48,7 +48,7 @@ const debug = process.env.NODE_ENV !== 'production';
 
 export default new Vuex.Store({
   modules: {
-    draft
+    post
   },
   state,
   getters,
