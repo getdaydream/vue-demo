@@ -11,6 +11,8 @@ const http = axios.create({
     (data) => {
       // `transformRequest` allows changes to the request data before it is sent to the server
       // This is only applicable for request methods 'PUT', 'POST', and 'PATCH'
+
+      console.log(data);
       if (data && !(data instanceof FormData)) {
         const params = new URLSearchParams();
         Object.keys(data).forEach((k) => {
@@ -27,6 +29,7 @@ const http = axios.create({
     (data) => {
       // Do whatever you want to transform the data
       const res = JSON.parse(data);
+      console.log(res);
       return res;
     }
   ],

@@ -35,6 +35,11 @@ const router = new Router({
           component: Book
         },
         {
+          path: '/draft',
+          name: 'draft',
+          component: Draft
+        },
+        {
           path: '/draft/new',
           name: 'draft-new',
           component: Editor
@@ -43,11 +48,6 @@ const router = new Router({
           path: '/draft/:id',
           name: 'draft-edit',
           component: Editor
-        },
-        {
-          path: '/draft',
-          name: 'draft',
-          component: Draft
         }
       ]
     },

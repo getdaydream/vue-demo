@@ -36,3 +36,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 * [Video Player for Vue](https://surmon-china.github.io/vue-video-player/)
 * [ssr:nuxt](https://zh.nuxtjs.org/guide/installation)
 * 分步加载
+* mongoose 排序 index

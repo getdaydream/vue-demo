@@ -16,19 +16,19 @@
         >
           <div class="draft">
             <router-link
-              to="/draft/122"
+              :to="{path: `/draft/${draft.id}`}"
               class="title">
-              {{ draft.title }}
+              {{ draft.title ? draft.title : '无标题' }}
             </router-link>
             <div class="info-box">
               <div class="word-count">
-                {{ draft.wordCount }}  字
+                {{ draft.content.length }}  字
               </div>
               <div class="dot">
                 ·
               </div>
               <div class="date">
-                {{ draft.date }}
+                {{ new Date(draft.update_at).toLocaleString() }}
               </div>
               <!-- @click.stop事件停止冒泡，点击外层时隐藏menu -->
               <div
@@ -57,52 +57,57 @@
 
 <script>
 // 文章的草稿页面
+import { mapState, mapActions } from 'vuex';
+import { CHANGE_CURRENT_DRAFT_ID } from '../store/mutation-types';
+
 export default {
   data() {
     return {
-      loading: true,
-      menuIndex: -1,
-      drafts: [{
-        title: '我是标题',
-        date: '2018年3月26日 18： 00',
-        id: '111',
-        wordCount: 12
-      }, {
-        title: '我是标题',
-        id: '111',
-        date: '2018年3月26日 18： 00',
-        wordCount: 12
-      }, {
-        title: '我是标题',
-        id: '111',
-        date: '2018年3月26日 18： 00',
-        wordCount: 12
-      }]
+      menuIndex: -1
     };
   },
+  computed: {
+    ...mapState({
+      drafts: state => state.post.drafts
+    })
+  },
+  mounted() {
+    this.getDrafts();
+  },
   methods: {
+    ...mapActions(['getDrafts', 'deletePost']),
     // 当前显示的菜单index
     changeMenuIndex(index) {
       this.menuIndex = index;
     },
     // 编辑草稿
     editDraft() {
-
+      const index = this.menuIndex;
+      this.menuIndex = -1;
+      const { id } = this.drafts[index];
+      this.$store.commit(CHANGE_CURRENT_DRAFT_ID, { id });
+      this.$router.push({ path: `/draft/${id}` });
     },
     // 删除草稿
     deleteDraft() {
+      const index = this.menuIndex;
       this.menuIndex = -1;
       this.$confirm('此操作将永久删除该草稿, 是否继续?', '删除草稿', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'message'
       }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
+        this.deletePost(this.drafts[index]).then(() => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
         });
       }).catch(() => {
       });
+    },
+    beforeRouteEnter() {
+      console.log('enter');
     }
   }
 };
@@ -128,7 +133,6 @@ export default {
 
 .list-header {
   padding: 1rem;
-  font-size: 1.8rem;
   font-weight: 700;
   line-height: 2;
   color: #333;
@@ -137,7 +141,7 @@ export default {
 }
 
 .list-header-content {
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 600;
 }
 

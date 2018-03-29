@@ -1,6 +1,6 @@
 <template>
   <mavon-editor
-    :value="value"
+    :value="content"
     :toolbars="toolbars"
     class="md-editor"
     placeholder="输入正文"
@@ -28,7 +28,7 @@ export default {
     'mavon-editor': mavonEditor.mavonEditor
   },
   props: {
-    value: {
+    content: {
       type: String,
       default: ''
     }
@@ -56,12 +56,9 @@ export default {
     },
     // 编辑区发生变化的回调事件(render: value 经过markdown解析后的结果)
     change() {
-      console.log('ss');
     },
-    save() {
-      http.get('/v1/users/').then((res) => {
-        console.log(res);
-      });
+    save(value) {
+      this.$emit('save', value);
     }
   }
 };

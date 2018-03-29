@@ -34,6 +34,16 @@ body {
   box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    outline: none;
+}
+
 img {
   display: block;
 }

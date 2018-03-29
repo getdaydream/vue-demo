@@ -12,5 +12,14 @@ export const SWITCH_PAGE = 'SWITCH_PAGE';
 export const UPDATE_USER = 'UPDATE_USER';
 
 // post mutations
-export const DELETE_DRAFT = 'DELETE_POST';
-export const NEW_DRAFT = 'NEW_DRAFT';
+// 删除草稿
+export const DELETE_POST = 'DELETE_POST';
+// 设置当前编辑草稿的id
+export const CHANGE_CURRENT_DRAFT_ID = 'CHANGE_CURRENT_DRAFT_ID';
+// 设置当前是否已发送新建草稿请求
+export const SET_NEW_DRAFT_MESSAGE_SENT = 'SET_NEW_DRAFT_MESSAGE_SENT';
+// 更新草稿
+export const UPDATE_ALL_DRAFTS = 'UPDATE_ALL_DRAFTS';
+// 更新单个草稿
+export const UPDATE_DRAFT = 'UPDATE_DRAFT';
+
