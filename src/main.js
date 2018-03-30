@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import { Message, Checkbox, Input,
-  Button, Dropdown, DropdownMenu, DropdownItem, MessageBox } from 'element-ui';
+  Button, Dropdown, DropdownMenu, DropdownItem, MessageBox, Upload } from 'element-ui';
 import App from './App';
 import router from './router';
 import store from './store/index';
@@ -19,6 +19,7 @@ Vue.use(Button);
 Vue.use(Dropdown);
 Vue.use(DropdownMenu);
 Vue.use(DropdownItem);
+Vue.use(Upload);
 Vue.prototype.$message = Message;
 Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$alert = MessageBox.alert;

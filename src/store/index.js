@@ -14,7 +14,8 @@ export const state = {
   // signup： 注册页面
   page: 'login',
   user: {
-    nickname: '',
+    userID: '',
+    username: '',
     email: '',
     avatar: ''
   }
@@ -39,8 +40,9 @@ const mutations = {
   [types.SWITCH_PAGE](state, payload) {
     state.page = payload.page;
   },
+  // payload : user
   [types.UPDATE_USER](state, payload) {
-    state.user = Object.assign(state.user, payload);
+    Object.assign(state.user, payload);
   }
 };
 

@@ -22,4 +22,6 @@ export const SET_NEW_DRAFT_MESSAGE_SENT = 'SET_NEW_DRAFT_MESSAGE_SENT';
 export const UPDATE_ALL_DRAFTS = 'UPDATE_ALL_DRAFTS';
 // 更新单个草稿
 export const UPDATE_DRAFT = 'UPDATE_DRAFT';
+// 请求帖子
+export const UPDATE_POSTS = 'UPDATE_POSTS';
 

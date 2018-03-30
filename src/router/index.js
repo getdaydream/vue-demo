@@ -7,6 +7,7 @@ import Book from '../view/book';
 import Bug from '../view/bug';
 import Draft from '../view/draft';
 import Editor from '../view/editor';
+import Dynamic from '../view/dynamic';
 import { state } from '../store/index';
 
 Vue.use(Router);
@@ -17,8 +18,13 @@ const router = new Router({
       path: '/',
       name: 'dashborad',
       component: Dashborad,
-      redirect: '/bug',
+      redirect: '/dynamic',
       children: [
+        {
+          path: '/dynamic',
+          name: 'dynamic',
+          component: Dynamic
+        },
         {
           path: '/bug',
           name: 'bug',

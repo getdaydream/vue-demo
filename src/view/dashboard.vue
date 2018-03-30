@@ -10,6 +10,15 @@
           role="navigation"
           class="app-header-nav">
           <router-link
+            :style="{background: $route.path.includes('/dynamic') ? '#f5f5f5': ''}"
+            to="/dynamic">
+            <img
+              :src="`../../static/icon/dynamic${ $route.path.includes('/dynamic') ?
+              '-active' : ''}.svg`"
+              title="点滴">
+          </router-link>
+          <router-link
+            :style="{background: $route.path.includes('/movie') ? '#f5f5f5': ''}"
             to="/movie">
             <img
               :src="`../../static/icon/movie${ $route.path.includes('/movie') ?
@@ -17,13 +26,17 @@
               title="电影·电视·综艺">
           </router-link>
           <router-link
+            :style="{background: $route.path.includes('/book') ? '#f5f5f5': ''}"
             to="/book">
             <img
               :src="`../../static/icon/book${ $route.path.includes('/book') ?
               '-active' : ''}.svg`"
               title="读书">
           </router-link>
-          <router-link to="/bug">
+          <router-link
+            :style="{background: $route.path.includes('/bug') ? '#f5f5f5': ''}"
+            to="/bug"
+          >
             <img
               :src="`../../static/icon/bug${ $route.path.includes('/bug') ?
               '-active' : ''}.svg`"
@@ -206,9 +219,19 @@ export default {
 
 .app-header-nav {
   display: flex;
-  justify-content: space-between;
   width: 220px;
-  height: 30px;
+  height: 56px;
+}
+
+.app-header-nav a {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.app-header-nav a:hover {
+  background-color: #f5f5f5;
 }
 
 .app-header-nav img {
@@ -287,7 +310,7 @@ export default {
 }
 
 .dropdown .avatar:before {
-  content: "";
+  content: '';
   position: absolute;
   top: 18px;
   right: -14px;

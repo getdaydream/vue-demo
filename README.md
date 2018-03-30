@@ -23,12 +23,10 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 ## Dependencies
 - [element](http://element-cn.eleme.io/#/zh-CN/component/installation): A Vue.js 2.0 UI Toolkit for Web.
 - [mavonEditor](https://github.com/hinesboy/mavonEditor): A markdown editor based on Vue that supports a variety of personalized features.
+- [Moment.js](http://momentjs.cn/): JavaScript 日期处理类库。
 
 ## TODO
-* 掘金 草稿页面
-* 哔哩哔哩 动态页面
 * 添加TODO
-* http://momentjs.com/
 * login page photo wall
 * [Vue-multiselect](https://vue-multiselect.js.org/)
 * [vue-awesome-swiper](https://github.com/surmon-china/vue-awesome-swiper)

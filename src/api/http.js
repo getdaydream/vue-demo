@@ -1,7 +1,7 @@
 import axios from 'axios';
-import store from '../store';
-import { UPDATE_TOKEN } from '../store/mutation-types';
-import router from '../router';
+// import store from '../store';
+// import { UPDATE_TOKEN } from '../store/mutation-types';
+// import router from '../router';
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
@@ -57,12 +57,12 @@ http.interceptors.response.use(
   (error) => {
     // 默认除了2XX之外的都是错误的，就会走这里
     if (error) {
-      store.commit(UPDATE_TOKEN, { token: '' });
-      router.replace({
-        // 跳转到登录页面
-        path: '/login',
-        query: { redirect: router.currentRoute.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
-      });
+      // store.commit(UPDATE_TOKEN, { token: '' });
+      // router.replace({
+      //   // 跳转到登录页面
+      //   path: '/login',
+      //   query: { redirect: router.currentRoute.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
+      // });
     }
     return Promise.reject(error.response);
   }

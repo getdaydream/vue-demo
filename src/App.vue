@@ -18,12 +18,12 @@ body {
 }
 
 #app {
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
-    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #606266;
+  font-size: 14px;
   background: #f4f5f5;
   min-height: 100vh;
 }
@@ -35,13 +35,13 @@ body {
 }
 
 ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-    outline: none;
+  background-color: #ccc;
+  outline: none;
 }
 
 img {
@@ -66,7 +66,36 @@ h4 {
   font-size: 18px;
 }
 
+/* 辅助文字 */
+.fs-12 {
+  font-size: 12px;
+}
+
+/* 正文 */
+.fs-14 {
+  font-size: 14px;
+}
+
+/* 小标题 */
+.fs-16 {
+  font-size: 16px;
+}
+
+/* 标题 */
+.fs-18 {
+  font-size: 18px;
+}
+
+/* 主标题 */
+.fs-20 {
+  font-size: 20px;
+}
+
 .flex {
   display: flex;
+}
+
+.fit-content {
+  width: fit-content;
 }
 </style>

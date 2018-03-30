@@ -22,7 +22,7 @@
           v-show="page === 'signup'"
           class="input-container">
           <input
-            v-model="nickname"
+            v-model="username"
             placeholder="你的昵称"
             autocomplete="username"
             type="text"
@@ -88,16 +88,16 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import { emailPattern, nicknamePattern } from '../util';
+import { emailPattern, usernamePattern } from '../util';
 import http from '../api/http';
-import { UPDATE_TOKEN, SWITCH_PAGE } from '../store/mutation-types';
+import { UPDATE_TOKEN, SWITCH_PAGE, UPDATE_USER } from '../store/mutation-types';
 import store from '../store/index';
 
 export default {
   name: 'Login',
   data() {
     return {
-      nickname: '',
+      username: '',
       email: '',
       password: '',
       rememberMe: true
@@ -111,8 +111,8 @@ export default {
       this.password = '';
     },
     // 不允许昵称邮箱密码中有空格
-    nickname() {
-      this.nickname = this.nickname.trim();
+    username() {
+      this.username = this.username.trim();
     },
     email() {
       this.email = this.email.trim();
@@ -167,15 +167,15 @@ export default {
       return true;
     },
     // 验证昵称字段
-    isNicknameValid() {
-      if (!this.nickname.length) {
+    isUsernameValid() {
+      if (!this.username.length) {
         this.$message({
           type: 'warning',
           message: '请输入昵称'
         });
         return false;
       }
-      if (!nicknamePattern.test(this.nickname)) {
+      if (!usernamePattern.test(this.username)) {
         this.$message({
           type: 'warning',
           message: '昵称 格式不正确，需要是2-15个字符，只能包含英文中文下划线，不能包含空格。'
@@ -185,7 +185,7 @@ export default {
       return true;
     },
     submit() {
-      if (this.page === 'signup' && !this.isNicknameValid()) {
+      if (this.page === 'signup' && !this.isUsernameValid()) {
         return;
       }
       if (this.isEmailValid() && this.isPasswordValid()) {
@@ -208,7 +208,9 @@ export default {
             type: 'error'
           });
         } else {
+          console.log(data);
           store.commit(UPDATE_TOKEN, { token: data.token });
+          store.commit(UPDATE_USER, data.user);
           this.$router.replace({ path: '/' });
           this.$message({
             message: '登陆成功',
@@ -220,7 +222,7 @@ export default {
     // 注册
     signup() {
       http.post('/v1/users/signup', {
-        nickname: this.nickname,
+        username: this.username,
         email: this.email,
         password: this.password
       }).then((res) => {

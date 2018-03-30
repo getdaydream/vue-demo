@@ -44,7 +44,7 @@
                     @click="editDraft">编辑</li>
                   <li
                     class="item"
-                    @click="deleteDraft">删除</li>
+                    @click="isDeleteDraft">删除</li>
                 </ul>
               </div>
             </div>
@@ -88,8 +88,8 @@ export default {
       this.$store.commit(CHANGE_CURRENT_DRAFT_ID, { id });
       this.$router.push({ path: `/draft/${id}` });
     },
-    // 删除草稿
-    deleteDraft() {
+    // 是否删除草稿
+    isDeleteDraft() {
       const index = this.menuIndex;
       this.menuIndex = -1;
       this.$confirm('此操作将永久删除该草稿, 是否继续?', '删除草稿', {
@@ -97,17 +97,15 @@ export default {
         cancelButtonText: '取消',
         type: 'message'
       }).then(() => {
-        this.deletePost(this.drafts[index]).then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
+        this.deletePost(this.drafts[index])
+          .then(() => {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
           });
-        });
       }).catch(() => {
       });
-    },
-    beforeRouteEnter() {
-      console.log('enter');
     }
   }
 };
