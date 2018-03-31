@@ -22,7 +22,7 @@ body {
     'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #606266;
+  color: #303133;
   font-size: 14px;
   background: #f4f5f5;
   min-height: 100vh;
@@ -64,6 +64,11 @@ h6 {
 
 h4 {
   font-size: 18px;
+}
+
+textarea {
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
 }
 
 /* 辅助文字 */

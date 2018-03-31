@@ -1,4 +1,5 @@
 const config = {
+  // markdown编辑器配置
   MARKDOWN_EDITOR: {
     toolbars: {
       bold: true, // 粗体

@@ -3,11 +3,15 @@
     <!-- 用户头像 -->
     <router-link
       :to="{path : `/people/${dynamic.id}`}"
-      :style="{background: user.avatar ? user.avatar : '#909399'}"
-      class="user-avatar"/>
+      class="user-avatar-link">
+      <img
+        v-show="user.avatar"
+        :src="user.avatar"
+        class="user-avatar">
+    </router-link>
     <div class="main-content">
       <!-- 动态发布者 -->
-      <p>
+      <p class="fs-16">
         {{ user.username }}
       </p>
       <!-- 动态发布时间 -->
@@ -85,12 +89,15 @@ export default {
   background: #fff;
 }
 
-.user-avatar {
+.user-avatar-link {
   position: absolute;
-  width: 48px;
-  height: 48px;
   top: 24px;
   left: 24px;
+}
+
+.user-avatar {
+  width: 48px;
+  height: 48px;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -104,15 +111,15 @@ export default {
   margin-left: 88px;
 }
 
+.content-publish-time {
+  padding-top: 4px;
+  color: #99a2aa;
+}
+
 .main-content p {
   margin: 0;
   padding: 0;
   text-align: start;
-}
-
-.content-publish-time {
-  padding-top: 4px;
-  color: #99a2aa;
 }
 
 .dynamic-content {

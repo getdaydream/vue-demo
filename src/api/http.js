@@ -12,7 +12,9 @@ const http = axios.create({
       // `transformRequest` allows changes to the request data before it is sent to the server
       // This is only applicable for request methods 'PUT', 'POST', and 'PATCH'
 
-      console.log(data);
+      if (data) {
+        console.log(data);
+      }
       if (data && !(data instanceof FormData)) {
         const params = new URLSearchParams();
         Object.keys(data).forEach((k) => {
@@ -39,6 +41,7 @@ const http = axios.create({
 // before request hook
 http.interceptors.request.use(
   (config) => {
+    console.log(config.url);
     if (localStorage.getItem('token')) {
       Object.assign(config, {
         headers: {

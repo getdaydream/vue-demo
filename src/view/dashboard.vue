@@ -71,39 +71,27 @@
           v-else
           class="user-info"
         >
-          <!-- 用户头像 -->
-          <div
-            class="user"
-            @mouseenter="swichDropdown(true)"
-            @mouseleave="swichDropdown(false)">
+          <el-dropdown
+            class="user">
+            <!-- 用户头像 -->
             <router-link
               class="dropdown"
               to="/people">
-              <div class="avatar"/>
+              <img
+                v-show="user.avatar"
+                :src="user.avatar"
+                class="avatar">
             </router-link>
-            <!-- 用户相关导航 -->
-            <transition name="el-zoom-in-top">
-              <ul
-                v-show="showDropdown"
-                class="dropdown-menu">
-                <li>
-                  <a>
-                    个人主页
-                  </a>
-                </li>
-                <li>
-                  <a>
-                    设置
-                  </a>
-                </li>
-                <li @click="logout">
-                  <a>
-                    退出
-                  </a>
-                </li>
-              </ul>
-            </transition>
-          </div>
+            <!-- 用户相关菜单 -->
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item >个人主页</el-dropdown-item>
+              <el-dropdown-item
+                @click.native="$router.push({name: 'setting'})">
+                设置
+              </el-dropdown-item>
+              <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
           <!-- 发布文章 -->
           <el-dropdown
             split-button
@@ -285,6 +273,7 @@ export default {
 
 .user {
   position: relative;
+  width: 80px;
   margin-right: 8px;
   user-select: none;
 }
@@ -294,7 +283,6 @@ export default {
 }
 
 .dropdown {
-  height: 100%;
   width: 40px;
   height: 40px;
   margin: 6px 20px;
@@ -307,16 +295,6 @@ export default {
   height: 100%;
   border: 1px solid #ddd;
   border-radius: 50%;
-}
-
-.dropdown .avatar:before {
-  content: '';
-  position: absolute;
-  top: 18px;
-  right: -14px;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 6px solid #999;
 }
 
 .dropdown-menu {
@@ -345,11 +323,6 @@ export default {
 .dropdown-menu li a:hover {
   background-color: #f5f5f5;
 }
-
-.el-dropdown {
-  width: 98px;
-}
-
 .sticky-holder {
   position: relative;
   top: 0px;

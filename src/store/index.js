@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import createLogger from 'vuex/dist/logger';
 import * as types from './mutation-types';
 import post from './modules/post';
+import http from '../api/http';
 
 Vue.use(Vuex);
 
@@ -41,8 +42,18 @@ const mutations = {
     state.page = payload.page;
   },
   // payload : user
-  [types.UPDATE_USER](state, payload) {
-    Object.assign(state.user, payload);
+  [types.UPDATE_USER](state, user) {
+    Object.assign(state.user, user);
+  }
+};
+
+const actions = {
+  // 修改用户信息
+  updateUser({ commit }, user) {
+    http.put('/v1/users', user)
+      .then(({ data }) => {
+        commit(types.UPDATE_USER, data.user);
+      });
   }
 };
 
@@ -55,6 +66,7 @@ export default new Vuex.Store({
   state,
   getters,
   mutations,
+  actions,
   plugins: debug ? [createLogger()] : [],
   strict: debug
 });

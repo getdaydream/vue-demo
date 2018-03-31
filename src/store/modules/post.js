@@ -54,7 +54,6 @@ const mutations = {
    */
   [types.DELETE_POST](state, payload) {
     const { category, id } = payload;
-    debugger;
     state[`${category}s`] = state[`${category}s`].filter(post => post.id !== id);
   }
 };
@@ -77,7 +76,6 @@ const actions = {
   },
   // 删除帖子
   deletePost({ commit }, payload) {
-    debugger;
     const { category, id } = payload;
     http.delete(`/v1/posts?id=${id}`).then(() => {
       commit(types.DELETE_POST, { category, id });

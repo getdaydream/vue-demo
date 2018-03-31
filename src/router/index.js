@@ -8,6 +8,9 @@ import Bug from '../view/bug';
 import Draft from '../view/draft';
 import Editor from '../view/editor';
 import Dynamic from '../view/dynamic';
+import Setting from '../view/setting';
+import SettingBasic from '../view/setting-basic';
+import SettingAccount from '../view/setting-account';
 import { state } from '../store/index';
 
 Vue.use(Router);
@@ -54,6 +57,21 @@ const router = new Router({
           path: '/draft/:id',
           name: 'draft-edit',
           component: Editor
+        },
+        {
+          path: '/setting',
+          redirect: '/setting/basic',
+          name: 'setting',
+          component: Setting,
+          children: [{
+            path: 'basic',
+            name: 'setting-basic',
+            component: SettingBasic
+          }, {
+            path: 'account',
+            name: 'setting-account',
+            component: SettingAccount
+          }]
         }
       ]
     },

@@ -27,6 +27,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 ## TODO
 * 添加TODO
+* 标签
 * login page photo wall
 * [Vue-multiselect](https://vue-multiselect.js.org/)
 * [vue-awesome-swiper](https://github.com/surmon-china/vue-awesome-swiper)
@@ -35,3 +36,6 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 * [ssr:nuxt](https://zh.nuxtjs.org/guide/installation)
 * 分步加载
 * mongoose 排序 index
+
+## Q
+* file upload multipart blob
