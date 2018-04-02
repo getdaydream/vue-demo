@@ -22,8 +22,22 @@
       <div class="dynamic-content">
         {{ dynamic.content }}
       </div>
+      <!-- 图片 -->
+      <div
+        v-if="dynamic.images && dynamic.images.length"
+        class="image-container"
+      >
+        <img
+          v-for="(src,index) in dynamic.images"
+          :src="src"
+          :key="index"
+          style="width:100px;">
+      </div>
+
       <div class="button-bar"/>
     </div>
+
+    <!-- 更多操作 ： 删除 -->
     <el-dropdown
       class="dropdown"
       trigger="click">
@@ -125,6 +139,22 @@ export default {
 .dynamic-content {
   margin-top: 10px;
   padding-right: 10px;
+}
+
+.image-container {
+  padding-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 330px;
+  user-select: none;
+}
+
+.image-container img {
+  width: 100px;
+  height: 100px;
+  border-radius: 6px;
+  margin: 0 4px 4px 0;
+  object-fit: cover;
 }
 
 .button-bar {

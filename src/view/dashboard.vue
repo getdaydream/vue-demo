@@ -282,6 +282,10 @@ export default {
   background-color: #f5f5f5;
 }
 
+.el-dropdown {
+  width: 99px;
+}
+
 .dropdown {
   width: 40px;
   height: 40px;

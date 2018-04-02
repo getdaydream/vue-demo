@@ -3,7 +3,7 @@
 import Vue from 'vue';
 import { Message, Checkbox, Input,
   Button, Dropdown, DropdownMenu,
-  DropdownItem, MessageBox, Upload, Menu, MenuItem } from 'element-ui';
+  DropdownItem, MessageBox, Upload, Menu, MenuItem, Popover, Dialog } from 'element-ui';
 import App from './App';
 import router from './router';
 import store from './store/index';
@@ -25,6 +25,8 @@ Vue.use(DropdownItem);
 Vue.use(Menu);
 Vue.use(MenuItem);
 Vue.use(Upload);
+Vue.use(Popover);
+Vue.use(Dialog);
 Vue.prototype.$message = Message;
 Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$alert = MessageBox.alert;
@@ -44,6 +46,9 @@ const init = () => {
   http.get('/v1/users')
     .then(({ data }) => {
       store.commit(UPDATE_USER, data.user);
+    })
+    .catch(() => {
+      router.replace({ path: '/login' });
     });
 };
 

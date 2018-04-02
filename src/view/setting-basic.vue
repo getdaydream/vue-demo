@@ -14,7 +14,7 @@
             :headers="headers"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
-            action="http://192.168.0.104:3000/api/v1/images/avatar">
+            action="http://192.168.0.104:3000/api/v1/images?directory=avatar">
             <el-button
               size="small"
               type="primary">更改头像</el-button>
@@ -40,6 +40,10 @@
             保存
           </el-button>
         </td>
+      </tr>
+      <tr>
+        <td>电子邮件</td>
+        <td/>
       </tr>
     </table>
   </div>
@@ -69,6 +73,7 @@ export default {
   methods: {
     ...mapActions(['updateUser']),
     ...mapMutations([UPDATE_USER]),
+    // TODO 上传验证 删除已有
     handleAvatarSuccess(res, file) {
       console.log(res);
       console.log(file);

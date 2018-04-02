@@ -1,16 +1,33 @@
 <template>
   <div class="dynamic-publish">
+    <!-- 文本内容 -->
     <el-input
       v-model="content"
-      :autosize="{ minRows: 3 }"
+      :rows="3"
       class="textarea"
       type="textarea"
       resize="none"
       placeholder="有什么想要记下的？"/>
     <div class="dynamic-publish-footer">
       <div>
+        <el-popover
+          ref="uploadPopover"
+          v-model="showUploadPopover"
+          :popper-options="{}"
+          placement="bottom-start"
+          width="358"
+          trigger="manual"
+        >
+          <dynamic-image-upload
+            @closePopover="showUploadPopover = false"
+            @currentFilenameArray="updateImages"/>
+        </el-popover>
+        <!-- 上传图片 -->
         <i
-          class="el-icon-picture-outline upload-picture-icon"/>
+          v-popover:uploadPopover
+          class="el-icon-picture-outline upload-picture-icon"
+          @click="showUploadPopover = !showUploadPopover"
+        />
       </div>
       <div>
         <el-button
@@ -25,28 +42,44 @@
 <script>
 // 发布动态
 import { mapActions } from 'vuex';
+import DynamicImageUpload from '../components/dynamic-image-upload';
+import { bus, BUS_EVENT } from '../util';
 
 export default {
+  components: {
+    'dynamic-image-upload': DynamicImageUpload
+  },
   data() {
     return {
-      content: ''
+      content: '',
+      showUploadPopover: false,
+      images: []
     };
   },
   methods: {
     ...mapActions(['publishPost']),
     // 发布动态
     publishDynamic() {
-      if (!this.content.trim()) {
+      if (!this.content.trim() && this.images.length === 0) {
         return;
       }
-      this.publishPost({ category: 'dynamic', content: this.content })
+      this.publishPost({
+        category: 'dynamic',
+        content: this.content ? this.content : '分享图片',
+        images: this.images })
         .then(() => {
+          bus.$emit(BUS_EVENT.CLEAR_UPLOAD_IMAGES);
           this.content = '';
+          this.images = [];
+          this.showUploadPopover = false;
           this.$message({
             type: 'success',
             message: '发布成功'
           });
         });
+    },
+    updateImages(images) {
+      this.images = images;
     }
   }
 };

@@ -1,4 +1,14 @@
 import moment from 'moment';
+import Vue from 'vue';
+
+export const bus = new Vue();
+export const BUS_EVENT = {
+  // 在发布动态成功后清空上传的图片
+  // emit by: dynamic-publish.vue
+  // handle by: dynamic-image-upload.vue
+  CLEAR_UPLOAD_IMAGES: 'CLEAR_UPLOAD_IMAGES'
+};
+
 /**
  * pattern
  */

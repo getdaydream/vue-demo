@@ -26,9 +26,9 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - [Moment.js](http://momentjs.cn/): JavaScript 日期处理类库。
 
 ## TODO
-* 添加TODO
+* 清单
 * 标签
-* login page photo wall
+* 重写图片显示组件
 * [Vue-multiselect](https://vue-multiselect.js.org/)
 * [vue-awesome-swiper](https://github.com/surmon-china/vue-awesome-swiper)
 * [vue-play](https://github.com/vue-play/vue-play)

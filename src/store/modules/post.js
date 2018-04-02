@@ -60,12 +60,9 @@ const mutations = {
 
 const actions = {
   // 发布帖子
-  publishPost({ commit }, { category, content }) {
-    http.post('/v1/posts', {
-      content,
-      category
-    }).then(({ data }) => {
-      commit(types.UPDATE_POSTS, { isNewPost: true, posts: [data.post], category });
+  publishPost({ commit }, post) {
+    http.post('/v1/posts', post).then(({ data }) => {
+      commit(types.UPDATE_POSTS, { isNewPost: true, posts: [data.post], category: post.category });
     });
   },
   // 请求帖子

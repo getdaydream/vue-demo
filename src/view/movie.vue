@@ -5,8 +5,15 @@
 </template>
 
 <script>
-export default {
+import http from '../api/http';
 
+export default {
+  mounted() {
+    http.get('/v1/movies?id=4920389')
+      .then((res) => {
+        console.log(res);
+      });
+  }
 };
 </script>
 
