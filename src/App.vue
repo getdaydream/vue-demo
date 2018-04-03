@@ -15,6 +15,7 @@ export default {
 <style>
 body {
   margin: 0;
+  overflow-x: hidden;
 }
 
 #app {
@@ -35,8 +36,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 0;
 }
 
 ::-webkit-scrollbar-thumb {

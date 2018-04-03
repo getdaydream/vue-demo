@@ -5,7 +5,7 @@
       :to="{path : `/people/${dynamic.id}`}"
       class="user-avatar-link">
       <img
-        v-show="user.avatar"
+        v-if="user.avatar"
         :src="user.avatar"
         class="user-avatar">
     </router-link>
@@ -24,14 +24,14 @@
       </div>
       <!-- 图片 -->
       <div
+        v-viewer="{title: false}"
         v-if="dynamic.images && dynamic.images.length"
         class="image-container"
       >
         <img
           v-for="(src,index) in dynamic.images"
           :src="src"
-          :key="index"
-          style="width:100px;">
+          :key="index">
       </div>
 
       <div class="button-bar"/>
@@ -155,6 +155,7 @@ export default {
   border-radius: 6px;
   margin: 0 4px 4px 0;
   object-fit: cover;
+  cursor:zoom-in;
 }
 
 .button-bar {

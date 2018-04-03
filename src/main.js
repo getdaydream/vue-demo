@@ -3,7 +3,9 @@
 import Vue from 'vue';
 import { Message, Checkbox, Input,
   Button, Dropdown, DropdownMenu,
-  DropdownItem, MessageBox, Upload, Menu, MenuItem, Popover, Dialog } from 'element-ui';
+  DropdownItem, MessageBox, Upload,
+  Menu, MenuItem, Popover, Dialog, Rate } from 'element-ui';
+import Viewer from 'v-viewer';
 import App from './App';
 import router from './router';
 import store from './store/index';
@@ -27,11 +29,15 @@ Vue.use(MenuItem);
 Vue.use(Upload);
 Vue.use(Popover);
 Vue.use(Dialog);
+Vue.use(Rate);
 Vue.prototype.$message = Message;
 Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$alert = MessageBox.alert;
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$prompt = MessageBox.prompt;
+
+// 图片预览组件
+Vue.use(Viewer);
 
 
 /* eslint-disable no-new */
