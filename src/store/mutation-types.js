@@ -25,3 +25,5 @@ export const UPDATE_DRAFT = 'UPDATE_DRAFT';
 // 请求帖子
 export const UPDATE_POSTS = 'UPDATE_POSTS';
 
+// movie mutations
+export const UPDATE_MOVIE_DETAIL_SET = 'UPDATE_MOVIE_DETAIL_SET';

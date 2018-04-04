@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import UserLogin from '../view/user-login';
 import Dashborad from '../view/dashboard';
 import Movie from '../view/movie';
+import MovieDetail from '../view/movie-detail';
 import Book from '../view/book';
 import Bug from '../view/bug';
 import Draft from '../view/draft';
@@ -34,6 +35,11 @@ const router = new Router({
           component: Bug
         },
         {
+          path: '/movie/:id',
+          name: 'movie-detail',
+          component: MovieDetail
+        },
+        {
           path: '/movie',
           name: 'movie',
           component: Movie
@@ -63,15 +69,18 @@ const router = new Router({
           redirect: '/setting/basic',
           name: 'setting',
           component: Setting,
-          children: [{
-            path: 'basic',
-            name: 'setting-basic',
-            component: SettingBasic
-          }, {
-            path: 'account',
-            name: 'setting-account',
-            component: SettingAccount
-          }]
+          children: [
+            {
+              path: 'basic',
+              name: 'setting-basic',
+              component: SettingBasic
+            },
+            {
+              path: 'account',
+              name: 'setting-account',
+              component: SettingAccount
+            }
+          ]
         }
       ]
     },

@@ -1,25 +1,17 @@
 <template>
-  <div class="wrapper">
-    <div class="cover">
+  <router-link
+    :to="{path: `/movie/${movie.id}`}"
+    class="wrapper">
+    <div class="poster-wrapper">
       <img
-        :src="movie.poster"
-        class="img radius-5"
-      >
+        v-show="movie.poster"
+        :src="movie.poster">
     </div>
-    <div class="info-wrapper">
-      <div class="info">
-        <div class="flex justify-space-around">
-          <el-rate
-            v-model="ratingValue"
-            disabled/>
-          <div class="rating">
-            {{ movie.ratingValue }}
-          </div>
-        </div>
-        <div class="title">{{ movie.title }}</div>
-      </div>
-    </div>
-  </div>
+    <p class="movie-basic-info">
+      {{ movie.title }}
+      <strong>{{ movie.ratingValue }}</strong>
+    </p>
+  </router-link>
 </template>
 
 <script>
@@ -37,25 +29,40 @@ export default {
 
 <style scoped>
 .wrapper {
-  width: 160px;
-  height: 304px;
+  width: 130px;
+  margin-right: 25px;
+  margin-bottom: 10px;
 }
 
-.cover {
-  overflow: hidden;
+.poster-wrapper {
+  width: 130px;
+  height: 182px;
   border-radius: 5px;
-  width: 160px;
+  overflow: hidden;
+  user-select: none;
 }
 
-.img {
-  width: 160px;
-  height: 214px;
-  object-fit: cover;
+.poster-wrapper img {
+  width: 130px;
+  height: 182px;
+}
+
+.movie-basic-info {
+  margin: 5px 0 0;
+  height: 44px;
+  overflow: hidden;
+  text-align: center;
+  font-size: 14px;
+  color: #606266;
+}
+
+.movie-basic-info strong {
+  color: #e09015;
 }
 
 .info-wrapper {
   display: block;
-  width: 160px;
+  width: 115;
   height: 90px;
   overflow: hidden;
 }

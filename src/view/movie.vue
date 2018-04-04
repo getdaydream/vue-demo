@@ -11,7 +11,8 @@
       <el-menu-item index="2">想看</el-menu-item>
       <el-menu-item index="3">在看</el-menu-item>
       <el-menu-item index="4">看过</el-menu-item>
-      <el-menu-item index="5">影评</el-menu-item>
+      <el-menu-item index="5">短评</el-menu-item>
+      <el-menu-item index="6">影评</el-menu-item>
     </el-menu>
     <div
       v-if="activeNav === 'all'"
@@ -71,7 +72,7 @@ export default {
   padding: 20px 5px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 </style>
 
