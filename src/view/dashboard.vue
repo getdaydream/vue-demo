@@ -74,14 +74,13 @@
           <el-dropdown
             class="user">
             <!-- 用户头像 -->
-            <router-link
-              class="dropdown"
-              to="/people">
+            <div
+              class="dropdown">
               <img
                 v-show="user.avatar"
                 :src="user.avatar"
                 class="avatar">
-            </router-link>
+            </div>
             <!-- 用户相关菜单 -->
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item >个人主页</el-dropdown-item>
@@ -111,7 +110,9 @@
     <div class="sticky-holder"/>
     <main
       role="main">
-      <router-view/>
+      <keep-alive>
+        <router-view/>
+      </keep-alive>
     </main>
   </div>
 </template>
@@ -280,10 +281,6 @@ export default {
 
 .user:hover {
   background-color: #f5f5f5;
-}
-
-.el-dropdown {
-  width: 99px;
 }
 
 .dropdown {

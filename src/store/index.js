@@ -2,9 +2,10 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import createLogger from 'vuex/dist/logger';
 import * as types from './mutation-types';
+import http from '../api/http';
 import post from './modules/post';
 import movie from './modules/movie';
-import http from '../api/http';
+import list from './modules/list';
 
 Vue.use(Vuex);
 
@@ -63,7 +64,8 @@ const debug = process.env.NODE_ENV !== 'production';
 export default new Vuex.Store({
   modules: {
     post,
-    movie
+    movie,
+    list
   },
   state,
   getters,

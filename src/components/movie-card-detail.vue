@@ -11,20 +11,40 @@
         {{ movie.title }}
         <span class="movie-year">{{ `(${movie.year})` }}</span>
       </div>
+      <div
+        v-if="movie.originalTitle"
+        class="movie-original-title">
+        {{ movie.originalTitle }}
+      </div>
 
       <!-- 对电影进行标记 -->
+      <div class="flex">
+        <el-button @click="wish">想看</el-button>
+        <el-button>看过</el-button>
+      </div>
       <div/>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
-  props: ['movie'] //eslint-disable-line
+  props: ['movie'], //eslint-disable-line
+  methods: {
+    ...mapActions(['markResource']),
+    wish() {
+      this.markResource({
+        resourceID: this.movie._id,//eslint-disable-line
+        project: 'movie'
+      });
+    }
+  }
 };
 </script>
 
-<style>
+<style scoped>
 .wrapper {
   width: 980px;
   margin: 40px auto;
@@ -45,14 +65,17 @@ export default {
 }
 
 .movie-title {
-  font-size: 20px;
+  font-size: 35px;
   font-weight: 700;
   line-height: 1.3;
 }
 
 .movie-year {
-  margin: 0;
-  padding: 0;
+  font-size: 30px;
   color: #909399;
+}
+
+.movie-original-title {
+  font-size: 24px;
 }
 </style>

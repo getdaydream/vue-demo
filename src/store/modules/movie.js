@@ -10,7 +10,7 @@ const state = {
   movieDetailArray: []
 };
 
-const getter = {
+const getters = {
 };
 
 const mutations = {
@@ -35,7 +35,7 @@ const actions = {
 
 export default {
   state,
-  getter,
+  getters,
   mutations,
   actions
 };

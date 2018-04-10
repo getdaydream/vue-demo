@@ -9,7 +9,7 @@
     </div>
     <p class="movie-basic-info">
       {{ movie.title }}
-      <strong>{{ movie.ratingValue }}</strong>
+      <strong>{{ Number(movie.ratingValue).toFixed(1) }}</strong>
     </p>
   </router-link>
 </template>
@@ -30,8 +30,7 @@ export default {
 <style scoped>
 .wrapper {
   width: 130px;
-  margin-right: 25px;
-  margin-bottom: 10px;
+  margin: 0 12px;
 }
 
 .poster-wrapper {
