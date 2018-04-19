@@ -10,7 +10,6 @@
           role="navigation"
           class="app-header-nav">
           <router-link
-            :style="{background: $route.path.includes('/dynamic') ? '#f5f5f5': ''}"
             to="/dynamic">
             <img
               :src="`../../static/icon/dynamic${ $route.path.includes('/dynamic') ?
@@ -18,7 +17,6 @@
               title="点滴">
           </router-link>
           <router-link
-            :style="{background: $route.path.includes('/movie') ? '#f5f5f5': ''}"
             to="/movie">
             <img
               :src="`../../static/icon/movie${ $route.path.includes('/movie') ?
@@ -26,7 +24,6 @@
               title="电影·电视·综艺">
           </router-link>
           <router-link
-            :style="{background: $route.path.includes('/book') ? '#f5f5f5': ''}"
             to="/book">
             <img
               :src="`../../static/icon/book${ $route.path.includes('/book') ?
@@ -34,7 +31,6 @@
               title="读书">
           </router-link>
           <router-link
-            :style="{background: $route.path.includes('/bug') ? '#f5f5f5': ''}"
             to="/bug"
           >
             <img
@@ -43,13 +39,6 @@
               title="虫子">
           </router-link>
         </nav>
-        <!-- 搜索框 -->
-        <div class="input-search">
-          <el-input
-            size="medium"
-            placeholder="搜索你感兴趣的内容"
-            suffix-icon="el-icon-search"/>
-        </div>
         <!-- 用户 -->
         <div
           v-if="!isLogin"
@@ -92,18 +81,6 @@
             </el-dropdown-menu>
           </el-dropdown>
           <!-- 发布文章 -->
-          <el-dropdown
-            split-button
-            type="primary"
-            class="el-dropdown"
-            @command="handleCommand"
-          >
-            发布
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>动态</el-dropdown-item>
-              <el-dropdown-item command="/draft/new">文章</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
         </div>
       </div>
     </header>
@@ -188,8 +165,8 @@ export default {
   width: 100%;
   top: 0px;
   left: 0px;
-  background: #fff;
-  box-shadow: 0 1px 3px rgba(26, 26, 26, 0.1);
+  background: rgb(44, 44, 65);
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.30);
   background-clip: content-box;
 }
 
@@ -294,7 +271,6 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  border: 1px solid #ddd;
   border-radius: 50%;
 }
 

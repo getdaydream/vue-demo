@@ -29,11 +29,11 @@
           @click="showUploadPopover = !showUploadPopover"
         />
       </div>
-      <div>
-        <el-button
-          size="medium"
-          type="primary"
-          @click="publishDynamic">发布</el-button>
+      <div
+        class="publish-button"
+        @click="publishDynamic"
+      >
+        发布
       </div>
     </div>
   </div>
@@ -85,11 +85,39 @@ export default {
 };
 </script>
 
+<style>
+.el-textarea__inner {
+  color: #bcc0cc;
+  background: rgb(39, 40, 56);
+  outline: 0;
+}
+</style>
+
+
 <style scoped>
 .dynamic-publish {
   padding: 15px;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: #2c2c41;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+.publish-button {
+  background: rgb(255, 66, 95);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  line-height: 30px;
+  width: 65px;
+  text-align: center;
+  font-size: 12px;
+  height: 30px;
+  border-radius: 1px;
+  border-radius: 3px;
+  user-select: none;
+}
+
+.publish-button:hover {
+  background: #eb5067;
 }
 
 .dynamic-publish-footer {

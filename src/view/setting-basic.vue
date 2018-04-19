@@ -123,7 +123,6 @@ export default {
 .avatar {
   width: 100px;
   height: 100px;
-  border: 1px solid #ddd;
   border-radius: 50%;
 }
 

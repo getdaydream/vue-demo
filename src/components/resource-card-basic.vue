@@ -1,29 +1,22 @@
 <template>
   <router-link
-    :to="{path: `/movie/${movie.id}`}"
+    :to="`/${category}/${id}`"
     class="wrapper">
     <div class="poster-wrapper">
       <img
-        v-show="movie.poster"
-        :src="movie.poster">
+        v-show="image"
+        :src="image">
     </div>
     <p class="movie-basic-info">
-      {{ movie.title }}
-      <strong>{{ Number(movie.ratingValue).toFixed(1) }}</strong>
+      {{ title }}
+      <strong>{{ Number(ratingValue).toFixed(1) }}</strong>
     </p>
   </router-link>
 </template>
 
 <script>
 export default {
-  props: ['movie'], //eslint-disable-line
-  computed: {
-    ratingValue() {
-      return this.movie && this.movie.ratingValue
-        ? this.movie.ratingValue / 2
-        : 0;
-    }
-  }
+  props: ['category','image', 'title', 'ratingValue', 'id'], //eslint-disable-line
 };
 </script>
 
@@ -52,11 +45,11 @@ export default {
   overflow: hidden;
   text-align: center;
   font-size: 14px;
-  color: #606266;
+  color: white;
 }
 
 .movie-basic-info strong {
-  color: #e09015;
+  color: #fff280;
 }
 
 .info-wrapper {
@@ -68,21 +61,5 @@ export default {
 
 .info {
   margin-top: 10px;
-}
-
-.title {
-  line-height: 22px;
-  max-height: 44px;
-  word-break: break-all;
-  word-wrap: break-word;
-  color: #222;
-  font-size: 14px;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.rating {
-  font-size: 18px;
-  color: #ff9900;
 }
 </style>

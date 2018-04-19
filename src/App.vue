@@ -16,6 +16,7 @@ export default {
 body {
   margin: 0;
   overflow-x: hidden;
+  background: rgb(39, 40, 56);
 }
 
 #app {
@@ -23,10 +24,8 @@ body {
     'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #303133;
+  color: #bcc0cc;
   font-size: 14px;
-  background: #f4f5f5;
-  min-height: 100vh;
 }
 
 *,
@@ -102,5 +101,11 @@ textarea {
 
 .fit-content {
   width: fit-content;
+}
+
+.card {
+  background: #2c2c41;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
 }
 </style>

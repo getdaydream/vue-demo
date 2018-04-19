@@ -84,8 +84,17 @@ const router = new Router({
         }
       ]
     },
+    // 用户登录、注册路由
     {
       path: '/login',
+      name: 'user-reg',
+      component: UserLogin,
+      meta: {
+        notRequireAuth: true
+      }
+    },
+    {
+      path: '/reg',
       name: 'user-login',
       component: UserLogin,
       meta: {

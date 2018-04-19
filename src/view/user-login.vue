@@ -3,15 +3,17 @@
     <div class="main">
       <h4 class="title">
         <div class="normal-title">
-          <a
-            :class="{active: page === 'login'}"
-            @click="switchPage('login')">
+          <router-link
+            :style="{color: $route.path === '/login'? '#ea6f5a' : '#969696'}"
+            :class="{active: $route.path === '/login'}"
+            to="/login">
             登陆
-          </a>
+          </router-link>
           <b>·</b>
-          <a
-            :class="{active: page === 'signup'}"
-            @click="switchPage('signup')">注册</a>
+          <router-link
+            :style="{color: $route.path === '/reg'? '#ea6f5a' : '#969696'}"
+            :class="{active: $route.path === '/reg'}"
+            to="/reg">注册</router-link>
         </div>
       </h4>
 
@@ -86,11 +88,12 @@
     </div>
   </div>
 </template>
+
 <script>
-import { mapState } from 'vuex';
+// 用户登录、注册页面
 import { emailPattern, usernamePattern } from '../util';
 import http from '../api/http';
-import { UPDATE_TOKEN, SWITCH_PAGE, UPDATE_USER } from '../store/mutation-types';
+import { UPDATE_TOKEN, UPDATE_USER } from '../store/mutation-types';
 import store from '../store/index';
 
 export default {
@@ -103,12 +106,17 @@ export default {
       rememberMe: true
     };
   },
-  computed: mapState(['page']),
+  computed: {
+    page() {
+      return this.$route.path.includes('/login') ? 'login' : 'signup';
+    }
+  },
   watch: {
     // 切换登陆注册时，重置账号密码
     page() {
       this.email = '';
       this.password = '';
+      this.username = '';
     },
     // 不允许昵称邮箱密码中有空格
     username() {
@@ -127,9 +135,6 @@ export default {
     }
   },
   methods: {
-    switchPage(page) {
-      store.commit(SWITCH_PAGE, { page });
-    },
     // 验证邮箱字段
     isEmailValid() {
       if (!this.email.trim()) {
@@ -252,7 +257,6 @@ export default {
   min-height: 750px;
   text-align: center;
   font-size: 14px;
-  background-color: #f1f1f1;
 }
 
 .main {
@@ -287,20 +291,14 @@ export default {
   color: #969696;
 }
 
-.title a {
-  display: inline;
-  padding: 10px;
-}
-
 .active {
   font-weight: 700;
-  color: #ea6f5a;
   border-bottom: 2px solid #ea6f5a;
 }
 
-.tooltip {
-  border: 1px solid #ea6f5a;
-  background-color: #fff;
+.normal-title a {
+  display: inline;
+  padding: 10px;
 }
 
 .input-container {
@@ -375,7 +373,7 @@ h6 {
 
 h6::before {
   left: 30px;
-  content: "";
+  content: '';
   border-top: 1px solid #b5b5b5;
   display: block;
   position: absolute;
@@ -385,7 +383,7 @@ h6::before {
 
 h6::after {
   right: 30px;
-  content: "";
+  content: '';
   border-top: 1px solid #b5b5b5;
   display: block;
   position: absolute;

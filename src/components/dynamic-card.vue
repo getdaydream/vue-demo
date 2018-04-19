@@ -11,7 +11,7 @@
     </router-link>
     <div class="main-content">
       <!-- 动态发布者 -->
-      <p class="fs-16">
+      <p class="fs-14 username">
         {{ user.username }}
       </p>
       <!-- 动态发布时间 -->
@@ -100,7 +100,8 @@ export default {
   padding: 0 10px;
   border-radius: 8px;
   width: 632px;
-  background: #fff;
+  background: #2c2c41;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3);
 }
 
 .user-avatar-link {
@@ -119,6 +120,10 @@ export default {
   border-radius: 50%;
 }
 
+.username {
+  color: rgb(255, 66, 95);
+}
+
 .main-content {
   width: 534px;
   padding-top: 27px;
@@ -127,7 +132,7 @@ export default {
 
 .content-publish-time {
   padding-top: 4px;
-  color: #99a2aa;
+  color: white;
 }
 
 .main-content p {
@@ -139,6 +144,7 @@ export default {
 .dynamic-content {
   margin-top: 10px;
   padding-right: 10px;
+  color: #bcc0cc;
 }
 
 .image-container {
@@ -155,7 +161,7 @@ export default {
   border-radius: 6px;
   margin: 0 4px 4px 0;
   object-fit: cover;
-  cursor:zoom-in;
+  cursor: zoom-in;
 }
 
 .button-bar {

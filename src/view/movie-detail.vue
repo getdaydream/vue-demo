@@ -1,17 +1,22 @@
 <template>
   <div v-if="movie">
-    <movie-card-detail :movie="movie"/>
+    <resource-header
+      :id="movie._id"
+      :image="movie.image"
+      :rating-value="movie.ratingValue"
+      :rating-count="movie.ratingCount"
+      :title="`${movie.title} ${movie.originalTitle ? movie.originalTitle : ''} （${movie.year}）`"/>
   </div>
 </template>
 
 <script>
 // 电影详情页面
 import store from '../store/index';
-import MovieCardDetail from '../components/movie-card-detail';
+import ResourceHeader from '../components/resource-header';
 
 export default {
   components: {
-    'movie-card-detail': MovieCardDetail
+    'resource-header': ResourceHeader
   },
   computed: {
     movie() {
