@@ -4,7 +4,7 @@ import Vue from 'vue';
 import { Message, Checkbox, Input,
   Button, Dropdown, DropdownMenu,
   DropdownItem, MessageBox, Upload,
-  Menu, MenuItem, Popover, Dialog, Rate } from 'element-ui';
+  Menu, MenuItem, Popover, Dialog, Tabs, TabPane } from 'element-ui';
 import Viewer from 'v-viewer';
 import App from './App';
 import router from './router';
@@ -29,7 +29,8 @@ Vue.use(MenuItem);
 Vue.use(Upload);
 Vue.use(Popover);
 Vue.use(Dialog);
-Vue.use(Rate);
+Vue.use(Tabs);
+Vue.use(TabPane);
 Vue.prototype.$message = Message;
 Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$alert = MessageBox.alert;

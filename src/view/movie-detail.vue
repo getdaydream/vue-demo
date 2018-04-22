@@ -5,7 +5,7 @@
       :image="movie.image"
       :rating-value="movie.ratingValue"
       :rating-count="movie.ratingCount"
-      :title="`${movie.title} ${movie.originalTitle ? movie.originalTitle : ''} （${movie.year}）`"/>
+      :title="`${movie.title} ${movie.originalTitle ? movie.originalTitle : ''}（${movie.year}）`"/>
   </div>
 </template>
 

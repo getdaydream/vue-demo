@@ -8,7 +8,7 @@
     </div>
     <!-- 资源信息 -->
     <div class="info-box">
-      <div class="resource-title">
+      <div class="resource-title fs-20">
         {{ title }}
       </div>
       <!-- 资源标记 -->
@@ -27,6 +27,9 @@
         {{ Number(ratingValue).toFixed(1) }}
         <span class="rating-value-slash">/</span>
         <span class="rating-value-total">10</span>
+      </div>
+      <div v-else>
+        尚无评分
       </div>
       <div v-if="ratingCount">
         {{ ratingCount }} 人评价
@@ -87,10 +90,8 @@ export default {
   margin-left: 137px;
 }
 .resource-title {
-  line-height: 36px;
   padding-right: 20px;
   font-weight: bolder;
-  font-size: 32px;
   color: white;
 }
 

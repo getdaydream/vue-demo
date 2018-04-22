@@ -9,7 +9,7 @@
     </div>
     <p class="movie-basic-info">
       {{ title }}
-      <strong>{{ Number(ratingValue).toFixed(1) }}</strong>
+      <strong v-if="ratingValue">{{ Number(ratingValue).toFixed(1) }}</strong>
     </p>
   </router-link>
 </template>
