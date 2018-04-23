@@ -9,8 +9,9 @@
       <el-tab-pane label="分类">
         <movie-search-tags/>
       </el-tab-pane>
-      <el-tab-pane label="想看">配置管理</el-tab-pane>
-      <el-tab-pane label="看过">角色管理</el-tab-pane>
+      <el-tab-pane label="想看">想看</el-tab-pane>
+      <el-tab-pane label="在看">在看</el-tab-pane>
+      <el-tab-pane label="看过">看过</el-tab-pane>
     </el-tabs>
 
   </div>

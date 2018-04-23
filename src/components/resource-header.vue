@@ -12,10 +12,10 @@
         {{ title }}
       </div>
       <!-- 资源标记 -->
-      <div class="resource-mark">
-        <div>想看</div>
-        <div>在看</div>
-        <div>看过</div>
+      <div class="resource-mark-info">
+        <gd-button @click.native="resourceMarkDialogVisible = true">想看</gd-button>
+        <gd-button @click.native="resourceMarkDialogVisible = true">在看</gd-button>
+        <gd-button @click.native="resourceMarkDialogVisible = true">看过</gd-button>
       </div>
     </div>
     <!-- 评分信息 -->
@@ -40,17 +40,20 @@
 
 <script>
 import { mapActions } from 'vuex';
+import Button from '../components/button';
 
 export default {
+  components: {
+    'gd-button': Button
+  },
+  data() {
+    return {
+      resourceMarkDialogVisible: false
+    };
+  },
   props: ['image', 'title', 'id', 'ratingValue', 'ratingCount'], //eslint-disable-line
   methods: {
-    ...mapActions(['markResource']),
-    wish() {
-      this.markResource({
-        resourceID: this.id,//eslint-disable-line
-        project: 'movie'
-      });
-    }
+    ...mapActions(['markResource'])
   }
 };
 </script>
@@ -121,7 +124,8 @@ export default {
   color: rgba(255, 255, 255, 0.3);
 }
 
-.resource-mark {
-  display: flex;
+.resource-mark-info {
+  position: absolute;
+  bottom: 15px;
 }
 </style>

@@ -17,13 +17,13 @@ const getters = {
   // 在看的电影列表
   doMovieLists(state) {
     return state.lists.filter(
-      l => l.project === 'movie' && l.state === 'processing',
+      l => l.project === 'movie' && l.state === 'doing',
     );
   },
   // 已看的电影列表
   collectMovieLists(state) {
     return state.lists.filter(
-      l => l.project === 'movie' && l.state === 'complete',
+      l => l.project === 'movie' && l.state === 'done',
     );
   }
 };
@@ -49,8 +49,8 @@ const actions = {
     });
   },
   // 标记一个资源加入清单
-  markResource({ commit }, { resourceID, project }) {
-    http.post('/v1/lists', { resourceID, project })
+  markResource({ commit }, { resourceID, project, state }) {
+    http.post('/v1/lists', { resourceID, project, state })
       .then(({ data }) => {
         commit(types.UPDATE_LIST, data.list);
       });

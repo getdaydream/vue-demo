@@ -4,7 +4,7 @@ import Vue from 'vue';
 import { Message, Checkbox, Input,
   Button, Dropdown, DropdownMenu,
   DropdownItem, MessageBox, Upload,
-  Menu, MenuItem, Popover, Dialog, Tabs, TabPane } from 'element-ui';
+  Menu, MenuItem, Popover, Dialog, Tabs, TabPane, Loading } from 'element-ui';
 import Viewer from 'v-viewer';
 import App from './App';
 import router from './router';
@@ -31,6 +31,7 @@ Vue.use(Popover);
 Vue.use(Dialog);
 Vue.use(Tabs);
 Vue.use(TabPane);
+Vue.use(Loading);
 Vue.prototype.$message = Message;
 Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$alert = MessageBox.alert;
@@ -50,6 +51,9 @@ new Vue({
 });
 
 const init = () => {
+  if (!localStorage.getItem('token')) {
+    return;
+  }
   http.get('/v1/users')
     .then(({ data }) => {
       store.commit(UPDATE_USER, data.user);

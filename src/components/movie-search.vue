@@ -1,11 +1,16 @@
 <template>
-  <div class="wrapper">
+  <div
+    v-loading.fullscreen="loading"
+    element-loading-text="拼命加载中"
+    element-loading-spinner="el-icon-loading"
+    element-loading-background="rgba(0, 0, 0, 0.8)"
+    class="wrapper">
     <!-- 搜索框 -->
     <el-input
       v-model="text"
       placeholder="请输入电影名称"
       class="input-with-select"
-      @keyup.enter="search"
+      @keyup.enter.native="search"
     >
       <el-button
         slot="append"
@@ -16,9 +21,9 @@
     <!-- 结果 -->
     <div class="search-result">
       <div v-if="error">
-        搜索超时
+        {{ error }}
       </div>
-      <div v-else>
+      <div v-if="results.length">
         <resource-header
           v-for="movie in results"
           :key="movie.id"
@@ -45,14 +50,26 @@ export default {
     return {
       text: '',
       error: '',
-      results: []
+      results: [],
+      loading: false
     };
   },
   methods: {
     search() {
+      if (!this.text) {
+        return;
+      }
+      this.loading = true;
       http.get(`/v1/movies/search?text=${this.text}`)
         .then(({ data }) => {
+          this.error = '';
           this.results = data.movies;
+          this.loading = false;
+        })
+        .catch(() => {
+          this.error = '搜索超时';
+          this.results = [];
+          this.loading = false;
         });
     }
   }
